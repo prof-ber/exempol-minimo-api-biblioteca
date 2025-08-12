@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Lista de livros cadastrados</h1>
+    <ul id="listinha"></ul>
+    <script>
+      const listinha = document.getElementById("listinha");
+      const livros = [];
+      // Puxar os livros da minha API
+      fetch("http://localhost:3000/api/livros")
+        /*Alocar o json de resposta na minha memória*/
+        .then((response) => response.json())
+        /*Para cada elemento no json da reposta*/
+        .then((data) => {
+          data.forEach((livro) => {
+            // Criar um elemento li
+            const li = document.createElement("li");
+            // Adicionar o título do livro ao elemento li
+            li.textContent =
+              livro.titulo + " - " + livro.autor + " - " + livro.ano;
+            // Adicionar o elemento li à lista
+            listinha.appendChild(li);
+          });
+        })
+        .catch((error) => console.error("Erro ao buscar livros:", error));
+    </script>
+  </body>
+</html>
